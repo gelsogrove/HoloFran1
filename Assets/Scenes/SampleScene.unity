@@ -140,6 +140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slate
       objectReference: {fileID: 0}
+    - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6612599088134562825, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.94
@@ -227,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069928669}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
