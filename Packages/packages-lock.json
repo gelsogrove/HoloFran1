@@ -302,7 +302,7 @@
       }
     },
     "org.mixedrealitytoolkit.core": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.core-3.0.0.tgz",
+      "version": "file:MixedReality/org.mixedrealitytoolkit.core-3.0.0-pre.18.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -342,18 +342,18 @@
       }
     },
     "org.mixedrealitytoolkit.spatialmanipulation": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.spatialmanipulation-3.0.0.tgz",
+      "version": "file:MixedReality/org.mixedrealitytoolkit.spatialmanipulation-3.0.0-pre.18.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "org.mixedrealitytoolkit.core": "3.0.0",
-        "org.mixedrealitytoolkit.uxcore": "3.0.0",
+        "org.mixedrealitytoolkit.core": "3.0.0-pre.18",
+        "org.mixedrealitytoolkit.uxcore": "3.0.0-pre.18",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
     "org.mixedrealitytoolkit.standardassets": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.standardassets-3.0.0.tgz",
+      "version": "file:MixedReality/org.mixedrealitytoolkit.standardassets-3.0.0-pre.18.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -361,44 +361,54 @@
       }
     },
     "org.mixedrealitytoolkit.tools": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.tools-3.0.0.tgz",
+      "version": "file:MixedReality/org.mixedrealitytoolkit.tools-3.0.0-pre.18.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "org.mixedrealitytoolkit.core": "3.0.0"
+        "org.mixedrealitytoolkit.core": "3.0.0-pre.18"
       }
     },
     "org.mixedrealitytoolkit.uxcomponents": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.uxcomponents-3.0.0.tgz",
+      "version": "file:MixedReality/org.mixedrealitytoolkit.uxcomponents-3.0.0-pre.18.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-        "org.mixedrealitytoolkit.uxcore": "3.0.0",
-        "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
-        "org.mixedrealitytoolkit.standardassets": "3.0.0",
+        "org.mixedrealitytoolkit.uxcore": "3.0.0-pre.18",
+        "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0-pre.18",
+        "org.mixedrealitytoolkit.standardassets": "3.0.0-pre.18",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
+    "org.mixedrealitytoolkit.uxcomponents.noncanvas": {
+      "version": "file:MixedReality/org.mixedrealitytoolkit.uxcomponents.noncanvas-3.0.0-pre.18.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "org.mixedrealitytoolkit.uxcore": "3.0.0-pre.18",
+        "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0-pre.18",
+        "org.mixedrealitytoolkit.standardassets": "3.0.0-pre.18"
+      }
+    },
     "org.mixedrealitytoolkit.uxcore": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.uxcore-3.0.0.tgz",
+      "version": "file:MixedReality/org.mixedrealitytoolkit.uxcore-3.0.0-pre.18.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
         "com.microsoft.mrtk.graphicstools.unity": "0.5.12",
-        "org.mixedrealitytoolkit.core": "3.0.0",
+        "org.mixedrealitytoolkit.core": "3.0.0-pre.18",
         "com.unity.inputsystem": "1.6.1",
         "com.unity.textmeshpro": "3.0.6",
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
     "org.mixedrealitytoolkit.windowsspeech": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.windowsspeech-3.0.0.tgz",
+      "version": "file:MixedReality/org.mixedrealitytoolkit.windowsspeech-3.0.0-pre.18.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
         "com.microsoft.mrtk.tts.windows": "1.0.1",
-        "org.mixedrealitytoolkit.core": "3.0.0"
+        "org.mixedrealitytoolkit.core": "3.0.0-pre.18"
       }
     },
     "com.unity.modules.ai": {
