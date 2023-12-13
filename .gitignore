@@ -1,0 +1,57 @@
+# Unity generated
+temp/
+obj/
+library/
+app/
+usersettings/
+logs/
+
+# Visual Studio / MonoDevelop generated
+.vs/
+exportedobj/
+obj/
+.suo
+.user
+/*.csproj
+*.pidb
+*.userprefs
+*.suo
+/*.sln
+*.unityproj
+*.ipch
+*.opensdf
+*.sdf
+*.tlog
+*.log
+*.idb
+*.opendb
+
+# Visual Studio Code Generated
+.vscode/
+
+# Project Specific List
+artifacts/
+assets/thirdparty*
+assets/textmesh pro*
+--version/
+assets/streamingassets/gltfmodels/
+/mrtk_log_mostrecentet.csv
+
+# DocFX Generated
+doc/
+
+# NuGet Build Process Generated
+/nuget/*
+/scripts/packaging/nugetrestoreproject.csproj
+
+# MSBuildForUnity generated
+msbuildforunity.common.props
+/*.msb4u.csproj.meta
+/*.msb4u.sln.meta
+dependencies*
+nuget.config*
+*.bin
+
+# Other files
+.ds_store
+mapsessionconfig.txt
