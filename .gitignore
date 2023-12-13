@@ -5,6 +5,9 @@ library/
 app/
 usersettings/
 logs/
+build/
+build_BurstDebugInformation_DoNotShip/
+
 
 # Visual Studio / MonoDevelop generated
 .vs/
