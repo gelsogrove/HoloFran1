@@ -1,18 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Follow : MonoBehaviour
 {
-    public Transform telecamera; // Assegna la telecamera dall'Editor Unity
+    public float followSpeed = 5f; // Velocit√† di movimento del pannello
+    public float distanceToFront = 5f; // Distanza iniziale davanti alla telecamera
+
+    private bool isFollowing = false;
+    private Transform slateTransform; // Riferimento al trasform dell'oggetto Slate
 
     void Start()
     {
-        // Controlla se la telecamera Ë assegnata
-        if (telecamera != null)
+        // Trova l'oggetto Slate nel GameObject corrente
+        slateTransform = GameObject.Find("Slate").transform;
+        if (slateTransform == null)
         {
-            // Rendi l'oggetto un figlio della telecamera
-            transform.parent = telecamera;
+            Debug.LogError("Oggetto Slate non trovato. Assicurati che il nome sia corretto.");
         }
+    }
+
+    void Update()
+    {
+        if (isFollowing && slateTransform != null)
+        {
+            MoveObject();
+        }
+    }
+
+    // Aggiungi questa funzione per gestire il movimento dell'oggetto Slate
+    private void MoveObject()
+    {
+        Vector3 direction = Camera.main.transform.position - slateTransform.position;
+        direction.y = 0f; // Mantieni la stessa altezza
+        direction.Normalize(); // Normalizza la direzione
+        Vector3 targetPosition = Camera.main.transform.position - direction * distanceToFront;
+        targetPosition.y = slateTransform.position.y; // Mantieni la stessa coordinata Y
+        slateTransform.position = Vector3.MoveTowards(slateTransform.position, targetPosition, followSpeed * Time.deltaTime);
+    }
+
+    public void ToggleFollow()
+    {
+        isFollowing = !isFollowing;
+    }
+
+    // Aggiungi questa funzione per gestire la variazione della distanza
+    public void ChangeDistance(float newDistance)
+    {
+        distanceToFront = newDistance;
     }
 }
