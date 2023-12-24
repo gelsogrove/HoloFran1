@@ -26,7 +26,7 @@ public class Follow : MonoBehaviour
         }
     }
 
-    // Aggiungi questa funzione per gestire il movimento dell'oggetto Slate
+ 
     private void MoveObject()
     {
         Vector3 direction = Camera.main.transform.position - slateTransform.position;
@@ -42,7 +42,7 @@ public class Follow : MonoBehaviour
         isFollowing = !isFollowing;
     }
 
-    // Aggiungi questa funzione per gestire la variazione della distanza
+   
     public void ChangeDistance(float newDistance)
     {
         distanceToFront = newDistance;
