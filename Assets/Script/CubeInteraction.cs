@@ -9,9 +9,9 @@ public class CubeInteraction : MonoBehaviour
 
     private void Start()
     {
-        myObject = GameObject.Find("GridButtons_1");
-        slateObject = GameObject.Find("Slate");
-        cubeObject = GameObject.Find("Cube");
+        myObject = GameObject.Find("Grid_1");
+        slateObject = GameObject.Find("Slate_1");
+        cubeObject = GameObject.Find("Cube_1");
 
         // Chiamiamo il metodo DeactivateObject dopo 300 millisecondi (0.3 secondi)
         Invoke("DeactivateObject", 0.3f);
