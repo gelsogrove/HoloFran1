@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Follow : MonoBehaviour
+public class FollowMe : MonoBehaviour
 {
     public float followSpeed = 5f; // Velocità di movimento del pannello
     public float distanceToFront = 5f; // Distanza iniziale davanti alla telecamera
