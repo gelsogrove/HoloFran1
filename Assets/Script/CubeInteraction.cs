@@ -2,32 +2,27 @@ using UnityEngine;
 
 public class CubeInteraction : MonoBehaviour
 {
-    private GameObject myObject;
-    private GameObject slateObject;
-    private GameObject cubeObject;
-    private GameObject myDetailsObject;
+    public GameObject gridObject;
+    public GameObject slateObject;
+    public GameObject cubeObject;
+    public GameObject detailsGridObject;
     private float offsetDistance = 0.5f; // Offset di 0.5 metro
  
 
 
     private void Start()
     {
-        myObject = GameObject.Find("Grid_1");
-        myDetailsObject = GameObject.Find("Details_1");
-        slateObject = GameObject.Find("Slate_1");
-        cubeObject = GameObject.Find("Cube_1");
-        
-        // Chiamiamo il metodo DeactivateObject dopo 300 millisecondi (0.3 secondi)
+       
         Invoke("DeactivateObject", 0.3f);
     }
 
-    private void PerformCommonOperations(bool toggleMyObject)
+    private void PerformCommonOperations(bool toggle)
     {
-        if (myObject != null)
+        if (gridObject != null)
         {
-            if (toggleMyObject)
+            if (toggle)
             {
-                myObject.SetActive(!myObject.activeSelf);
+                gridObject.SetActive(!gridObject.activeSelf);
             }
 
             myDetailsObject.SetActive(false);
@@ -72,6 +67,12 @@ public class CubeInteraction : MonoBehaviour
       
     }
 
+
+  public void OpenDetails()
+    {
+       
+        detailsGridObject.SetActive(!detailsGridObject.activeSelf);
+    }
     // Metodo per impostare la posizione e la rotazione di un oggetto
     private void SetObjectTransform(GameObject obj, Vector3 position, Quaternion rotation)
     {

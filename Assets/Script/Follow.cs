@@ -4,25 +4,20 @@ public class FollowMe : MonoBehaviour
 {
     public float followSpeed = 5f; // Velocità di movimento del pannello
     public float distanceToFront = 3f; // Distanza iniziale davanti alla telecamera
-
     private bool isFollowing = false;
-    private Transform slateTransform; // Riferimento al trasform dell'oggetto Slate
+    public Transform slateTransform; // Riferimento al trasform dell'oggetto Slate
 
     void Start()
     {
-        // Trova l'oggetto Slate nel GameObject corrente
-        slateTransform = GameObject.Find("Slate_1").transform;
-        if (slateTransform == null)
-        {
-            Debug.LogError("Oggetto Slate non trovato. Assicurati che il nome sia corretto.");
-        }
+  
+        slateTransform = slateTransform.transform;
+      
     }
 
     void Update()
     {
         if (isFollowing && slateTransform != null)
         {
-            Debug.Log("isFollowing" + isFollowing);
             MoveObject();
         }
     }
@@ -47,27 +42,15 @@ public class FollowMe : MonoBehaviour
     }
 
 
-
-
-
-
     public void ToggleFollow()
     {
         isFollowing = !isFollowing;
- 
     }
 
     public void StopFollow()
     {
         isFollowing = false;
-
     }
 
-
-
-
-    public void ChangeDistance(float newDistance)
-    {
-        distanceToFront = newDistance;
-    }
+   
 }
