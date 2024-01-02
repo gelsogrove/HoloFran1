@@ -32,7 +32,7 @@ public class FollowMe : MonoBehaviour
         if (Camera.main != null)
         {
             Vector3 cameraPosition = Camera.main.transform.position;
-            Vector3 targetPosition = cameraPosition + Camera.main.transform.forward * distanceToFront;
+            Vector3 targetPosition = cameraPosition + (Camera.main.transform.forward * distanceToFront) / 2;
 
             // Calcoliamo il punto medio tra la posizione corrente e la posizione desiderata
             Vector3 intermediatePosition = Vector3.Lerp(slateTransform.position, targetPosition, Time.deltaTime * followSpeed);

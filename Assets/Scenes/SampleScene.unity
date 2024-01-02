@@ -5254,7 +5254,6 @@ GameObject:
   - component: {fileID: 126487893}
   - component: {fileID: 126487896}
   - component: {fileID: 126487897}
-  - component: {fileID: 126487898}
   m_Layer: 0
   m_Name: Cube_1
   m_TagString: Untagged
@@ -5396,9 +5395,21 @@ MonoBehaviour:
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 126487898}
+      - m_Target: {fileID: 1025977072}
         m_TargetAssemblyTypeName: CubeInteraction, Assembly-CSharp
         m_MethodName: OnTouch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1025977071}
+        m_TargetAssemblyTypeName: FollowMe, Assembly-CSharp
+        m_MethodName: StopFollow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5703,18 +5714,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bindingProfile: {fileID: 11400000, guid: c2554c7933796464c965ae0c4acf9561, type: 2}
---- !u!114 &126487898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126487884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 775838954f5b744bf8d0543b3edfc10e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &131967503
 GameObject:
   m_ObjectHideFlags: 0
@@ -14984,9 +14983,9 @@ MonoBehaviour:
   <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7057686687362195097}
-        m_TargetAssemblyTypeName: FollowMe, Assembly-CSharp
-        m_MethodName: ToggleFollow
+      - m_Target: {fileID: 1025977072}
+        m_TargetAssemblyTypeName: CubeInteraction, Assembly-CSharp
+        m_MethodName: OnTouch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -40348,6 +40347,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1025977070}
+  - component: {fileID: 1025977071}
+  - component: {fileID: 1025977072}
   m_Layer: 0
   m_Name: Case1
   m_TagString: Untagged
@@ -40372,6 +40373,32 @@ Transform:
   - {fileID: 791738713285290182}
   m_Father: {fileID: 1069928670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1025977071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025977069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9c5da897ae28447bfc37ed46000b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followSpeed: 5
+  distanceToFront: 3
+--- !u!114 &1025977072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025977069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 775838954f5b744bf8d0543b3edfc10e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1033001656
 GameObject:
   m_ObjectHideFlags: 0
@@ -83626,7 +83653,6 @@ GameObject:
   - component: {fileID: 576144249196034300}
   - component: {fileID: 7057686687362195096}
   - component: {fileID: 1765622893196014920}
-  - component: {fileID: 7057686687362195097}
   m_Layer: 0
   m_Name: Grid_1
   m_TagString: Untagged
@@ -90025,7 +90051,7 @@ MonoBehaviour:
     onEntered:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7057686687362195097}
+        - m_Target: {fileID: 1025977071}
           m_TargetAssemblyTypeName: FollowMe, Assembly-CSharp
           m_MethodName: ToggleFollow
           m_Mode: 1
@@ -90726,20 +90752,6 @@ MonoBehaviour:
   additionalOffset: {x: 0, y: 0, z: 0}
   additionalRotation: {x: 0, y: 0, z: 0}
   updateSolvers: 1
---- !u!114 &7057686687362195097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2335485236708826039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e9c5da897ae28447bfc37ed46000b23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followSpeed: 5
-  distanceToFront: 3
 --- !u!114 &7063889178105044518
 MonoBehaviour:
   m_ObjectHideFlags: 0
