@@ -22,6 +22,7 @@ public class FollowMe : MonoBehaviour
     {
         if (isFollowing && slateTransform != null)
         {
+            Debug.Log("isFollowing" + isFollowing);
             MoveObject();
         }
     }

@@ -7,6 +7,8 @@ public class CubeInteraction : MonoBehaviour
     private GameObject cubeObject;
     private GameObject myDetailsObject;
     private float offsetDistance = 0.5f; // Offset di 0.5 metro
+ 
+
 
     private void Start()
     {
@@ -14,7 +16,7 @@ public class CubeInteraction : MonoBehaviour
         myDetailsObject = GameObject.Find("Details_1");
         slateObject = GameObject.Find("Slate_1");
         cubeObject = GameObject.Find("Cube_1");
-
+        
         // Chiamiamo il metodo DeactivateObject dopo 300 millisecondi (0.3 secondi)
         Invoke("DeactivateObject", 0.3f);
     }
@@ -66,6 +68,8 @@ public class CubeInteraction : MonoBehaviour
     {
         // Chiamiamo PerformCommonOperations con toggleMyObject a true
         PerformCommonOperations(true);
+
+      
     }
 
     // Metodo per impostare la posizione e la rotazione di un oggetto
