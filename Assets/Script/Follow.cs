@@ -6,6 +6,7 @@ public class FollowMe : MonoBehaviour
     public float distanceToFront = 3f; // Distanza iniziale davanti alla telecamera
     private bool isFollowing = false;
     public Transform slateTransform; // Riferimento al trasform dell'oggetto Slate
+    
 
     void Start()
     {
@@ -28,11 +29,9 @@ public class FollowMe : MonoBehaviour
         {
             Vector3 cameraPosition = Camera.main.transform.position;
             Vector3 targetPosition = cameraPosition + (Camera.main.transform.forward * distanceToFront) / 2;
-
-            // Calcoliamo il punto medio tra la posizione corrente e la posizione desiderata
             Vector3 intermediatePosition = Vector3.Lerp(slateTransform.position, targetPosition, Time.deltaTime * followSpeed);
 
-            // Aggiorniamo la posizione dell'oggetto "slate"
+
             slateTransform.position = intermediatePosition;
         }
         else

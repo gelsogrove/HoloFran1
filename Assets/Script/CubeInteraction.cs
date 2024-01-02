@@ -2,30 +2,45 @@ using UnityEngine;
 
 public class CubeInteraction : MonoBehaviour
 {
+    public GameObject cubeObject;
     public GameObject gridObject;
     public GameObject slateObject;
-    public GameObject cubeObject;
     public GameObject detailsGridObject;
-    private float offsetDistance = 0.5f; // Offset di 0.5 metro
- 
 
-
+    private float offsetDistance = 0.5f;  
     private void Start()
     {
-       
-        Invoke("DeactivateObject", 0.3f);
+           gridObject.SetActive(false);
     }
 
-    private void PerformCommonOperations(bool toggle)
-    {
-        if (gridObject != null)
-        {
-            if (toggle)
-            {
-                gridObject.SetActive(!gridObject.activeSelf);
-            }
 
-            myDetailsObject.SetActive(false);
+
+    public void OpenDetails()
+    {
+
+        detailsGridObject.SetActive(!detailsGridObject.activeSelf);
+    }
+    
+ 
+
+    private async void MoveSlateWithDelay(Vector3 position, Quaternion rotation, float delay)
+    {
+        await System.Threading.Tasks.Task.Delay((int)(delay * 1000));
+
+        // Posizioniamo e ruotiamo l'oggetto nella posizione desiderata
+        SetObjectTransform(slateObject, position, rotation);
+    }
+
+
+    public void OnTouch()
+    {
+      if (gridObject != null)
+        {
+            
+            gridObject.SetActive(!gridObject.activeSelf);
+            
+
+            detailsGridObject.SetActive(false);
 
             // Otteniamo la posizione del cubo principale
             Vector3 mainCubePosition = cubeObject.transform.position;
@@ -43,37 +58,9 @@ public class CubeInteraction : MonoBehaviour
         {
             Debug.LogWarning("Oggetto non trovato.");
         }
+
     }
 
-    private async void MoveSlateWithDelay(Vector3 position, Quaternion rotation, float delay)
-    {
-        await System.Threading.Tasks.Task.Delay((int)(delay * 1000));
-
-        // Posizioniamo e ruotiamo l'oggetto nella posizione desiderata
-        SetObjectTransform(slateObject, position, rotation);
-    }
-
-    private void DeactivateObject()
-    {
-        // Chiamiamo PerformCommonOperations con toggleMyObject a false
-        PerformCommonOperations(false);
-    }
-
-    public void OnTouch()
-    {
-        // Chiamiamo PerformCommonOperations con toggleMyObject a true
-        PerformCommonOperations(true);
-
-      
-    }
-
-
-  public void OpenDetails()
-    {
-       
-        detailsGridObject.SetActive(!detailsGridObject.activeSelf);
-    }
-    // Metodo per impostare la posizione e la rotazione di un oggetto
     private void SetObjectTransform(GameObject obj, Vector3 position, Quaternion rotation)
     {
         if (obj != null)
