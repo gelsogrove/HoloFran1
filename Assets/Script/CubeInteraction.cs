@@ -3,56 +3,52 @@ using UnityEngine;
 public class CubeInteraction : MonoBehaviour
 {
     public GameObject cubeObject;
-    public GameObject gridObject;
-    public GameObject slateObject;
+    public GameObject containerObject;
     public GameObject detailsGridObject;
+    public GameObject graphGriddObject;
 
-    private float offsetDistance = 0.5f;  
+     
     private void Start()
     {
-           gridObject.SetActive(false);
+           containerObject.SetActive(false);
+           graphGriddObject.SetActive(false);
     }
-
-
 
     public void OpenDetails()
     {
-
         detailsGridObject.SetActive(!detailsGridObject.activeSelf);
     }
     
- 
 
-    private async void MoveSlateWithDelay(Vector3 position, Quaternion rotation, float delay)
+    public void OpenGraphToggle()
     {
-        await System.Threading.Tasks.Task.Delay((int)(delay * 1000));
-
-        // Posizioniamo e ruotiamo l'oggetto nella posizione desiderata
-        SetObjectTransform(slateObject, position, rotation);
+        graphGriddObject.SetActive(!graphGriddObject.activeSelf);
     }
+    
 
 
     public void OnTouch()
     {
-      if (gridObject != null)
+      if (containerObject != null)
         {
             
-            gridObject.SetActive(!gridObject.activeSelf);
+            containerObject.SetActive(!containerObject.activeSelf);
             
-
             detailsGridObject.SetActive(false);
+            graphGriddObject.SetActive(false);
 
             // Otteniamo la posizione del cubo principale
             Vector3 mainCubePosition = cubeObject.transform.position;
 
-            // Calcoliamo la posizione desiderata aggiungendo un offset di 1 metro a destra
-            Vector3 desiredPosition = mainCubePosition + new Vector3(offsetDistance, 0f, 0f);
+            // Calcoliamo la posizione desiderata  
+            Vector3 desiredPosition = mainCubePosition + new Vector3(0.6f , -0.2f, 0f);
 
             // Impostiamo la rotazione desiderata
             Quaternion desiredRotation = Quaternion.identity;
 
             // Attiviamo un nuovo metodo per spostare l'oggetto dopo un breve ritardo
-            MoveSlateWithDelay(desiredPosition, desiredRotation, 0.1f);
+            SetContainerSolution(containerObject, desiredPosition, desiredRotation);
+            
         }
         else
         {
@@ -61,7 +57,7 @@ public class CubeInteraction : MonoBehaviour
 
     }
 
-    private void SetObjectTransform(GameObject obj, Vector3 position, Quaternion rotation)
+    private void SetContainerSolution(GameObject obj, Vector3 position, Quaternion rotation)
     {
         if (obj != null)
         {
@@ -73,4 +69,30 @@ public class CubeInteraction : MonoBehaviour
             Debug.LogWarning("Oggetto non valido.");
         }
     }
+
+    public void CloseMainSlate() {
+        containerObject.SetActive(false);
+        detailsGridObject.SetActive(false);
+        graphGriddObject.SetActive(false);
+    }
+
+    public void CloseDetailsSlate() {
+        
+        detailsGridObject.SetActive(false);
+        graphGriddObject.SetActive(false);
+    }
+
+    public void CloseGraphSlate()
+{
+    // Assicurati che graphGriddObject sia stato inizializzato correttamente
+    if (graphGriddObject != null)
+    {
+        graphGriddObject.SetActive(false);
+    }
+    else
+    {
+        Debug.LogWarning("graphGriddObject non valido.");
+    }
+}
+
 }
