@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class CubeInteraction : MonoBehaviour
 {
@@ -14,10 +16,36 @@ public class CubeInteraction : MonoBehaviour
            graphGriddObject.SetActive(false);
     }
 
-    public void OpenDetails()
+  public void OpenDetails(GameObject backPlate)
     {
         detailsGridObject.SetActive(!detailsGridObject.activeSelf);
+
+        RawImage backPlateRawImage = backPlate.GetComponent<RawImage>();
+
+        if (backPlateRawImage != null)
+        {
+            Debug.Log("RawImage trovata su: " + backPlate.name);
+            
+            // Imposta il colore con valori RGB convertiti
+            if (backPlateRawImage.color == Color.red) {
+                    backPlateRawImage.color =   new Color(151f / 255f, 216f / 255f, 1f, 51f / 255f);
+
+            }else {
+                backPlateRawImage.color = Color.red;
+            }
+            
+
+
+            backPlateRawImage.SetMaterialDirty(); 
+        }
+        else
+        {
+            Debug.LogError("RawImage non trovata su: " + backPlate.name);
+        }
     }
+
+
+
     
 
     public void OpenGraphToggle()
@@ -41,7 +69,7 @@ public class CubeInteraction : MonoBehaviour
             Vector3 mainCubePosition = cubeObject.transform.position;
 
             // Calcoliamo la posizione desiderata  
-            Vector3 desiredPosition = mainCubePosition + new Vector3(0.6f , -0.2f, 0f);
+            Vector3 desiredPosition = mainCubePosition + new Vector3(0.7f , -0.2f, 0f);
 
             // Impostiamo la rotazione desiderata
             Quaternion desiredRotation = Quaternion.identity;
