@@ -16,8 +16,7 @@ public class MyClickHandler : MonoBehaviour
 
     void Update()
     {
-        if (Title != null)
-        {
+        
             Vector3 directionToTitle = Title.transform.position - Camera.main.transform.position;
             Vector3 directionToMenu = Menu.transform.position - Camera.main.transform.position;
 
@@ -48,7 +47,7 @@ public class MyClickHandler : MonoBehaviour
             {
                 isMenuOpen = false;
             }
-        }
+        
     }
 
     public void OpenMenu()
