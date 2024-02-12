@@ -37,43 +37,43 @@ public class MyClickHandler : MonoBehaviour
             CubeR.transform.position = Cube.transform.position;
 
 
-        if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && !isMenuOpen)
+            if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && (!isMenuOpen || !isContainerOpen  ))
             {
                 Ray ray = new Ray(controllerTransform.position, controllerTransform.forward);
-                RaycastHit hit;
-
-                
-                int layerMask = ~(LayerMask.GetMask("Canvas") | LayerMask.GetMask("Collider"));
+                RaycastHit hit;                                 
 
 
+                if (Physics.Raycast(ray, out hit, raycastDistance))
+                {
+                    string objectHit = hit.collider.gameObject.name; // Ottieni il nome dell'oggetto colpito
+                    debugTextMesh.text = "Object Hit: " + objectHit; // Imposta il testo con il nome dell'oggetto colpito
 
-            if (Physics.Raycast(ray, out hit, raycastDistance, layerMask))
-            {
-                string objectHit = hit.collider.gameObject.name; // Ottieni il nome dell'oggetto colpito
-                debugTextMesh.text = "Object Hit: " + objectHit; // Imposta il testo con il nome dell'oggetto colpito
 
+                        if (hit.collider.CompareTag("Cube"))
+                        {
+                            OpenMenu();
+                            isMenuOpen = true;
+                        }
 
-                if (hit.collider.CompareTag("Cube"))
-                    {
-                        OpenMenu();
-                        isMenuOpen = true;
-                    }
-
-                    if (hit.collider.CompareTag("Example1"))
-                    {
-                        OpenContainer();
-                        isContainerOpen = true;
-                    }
+                        if (objectHit == "Example1")
+                        {                           
+                            OpenContainer();
+                            isContainerOpen = true;
+                        }
                 }
     
             }
             else if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
             {
                 isMenuOpen = false;
-                isContainerOpen = true;
-        }
+                isContainerOpen = false;                            
+            }
         
     }
+
+
+   
+
 
     public void OpenMenu()
     {
@@ -81,16 +81,22 @@ public class MyClickHandler : MonoBehaviour
 
         if (menu != null)
         {
-            bool isActive = menu.activeSelf;
+            bool isActive = menu.activeSelf;            
+
             menu.SetActive(!isActive);
 
-            debugTextMesh.text = "OpenMenu " + !isActive;
+            if (!isContainerOpen) {
+                GameObject.Find("SceneObjects/Case1/Cube/Canvas/Container").SetActive(false);
+            }
+
+            debugTextMesh.text = "isContainerOpen " + isContainerOpen + "isMenuOpen" + isMenuOpen;
         }
     }
 
     public void OpenContainer()
     {
-        GameObject container = GameObject.FindGameObjectWithTag("Container");
+        GameObject container = GameObject.Find("SceneObjects/Case1/Cube/Canvas/Container");
+        
 
         if (container != null)
         {
