@@ -9,6 +9,11 @@ TagManager:
   - Cube
   - Eaxmple1
   - Canvas
+  - RoomLight
+  - Part
+  - Cube1
+  - Cube2
+  - Example2
   layers:
   - Default
   - TransparentFX

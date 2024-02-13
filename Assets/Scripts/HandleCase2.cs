@@ -2,7 +2,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-public class MyClickHandler : MonoBehaviour
+public class HandleCase2 : MonoBehaviour
 {
     public GameObject Cube;
     public GameObject CubeR;
@@ -21,20 +21,18 @@ public class MyClickHandler : MonoBehaviour
         
             Vector3 directionToTitle = Title.transform.position - Camera.main.transform.position;
             Vector3 directionToMenu = Menu.transform.position - Camera.main.transform.position;
+            Vector3 directionToContainer = Container.transform.position - Camera.main.transform.position;
 
             Quaternion lookRotationTitle = Quaternion.LookRotation(directionToTitle, Vector3.up);
             Quaternion lookRotationMenu = Quaternion.LookRotation(directionToMenu, Vector3.up);
+            Quaternion lookRotationContainer= Quaternion.LookRotation(directionToContainer, Vector3.up);
 
             Title.transform.rotation = lookRotationTitle;
             Menu.transform.rotation = lookRotationMenu;
+            Container.transform.rotation = lookRotationContainer;
 
             CubeR.transform.Rotate(Vector3.up, 90f * Time.deltaTime);
-            CubeR.transform.position = Cube.transform.position;
-
-
-            //Aggiorno canvas
-            CubeR.transform.Rotate(Vector3.up, 90f * Time.deltaTime);
-            CubeR.transform.position = Cube.transform.position;
+            CubeR.transform.position = Cube.transform.position;   
 
 
             if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && (!isMenuOpen || !isContainerOpen  ))
@@ -46,16 +44,16 @@ public class MyClickHandler : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, raycastDistance))
                 {
                     string objectHit = hit.collider.gameObject.name; // Ottieni il nome dell'oggetto colpito
-                    debugTextMesh.text = "Object Hit: " + objectHit; // Imposta il testo con il nome dell'oggetto colpito
+                    debugTextMesh.text = "CASE 2 > Object Hit: " + objectHit; // Imposta il testo con il nome dell'oggetto colpito
 
 
-                        if (hit.collider.CompareTag("Cube"))
+                        if (hit.collider.CompareTag("Cube2"))
                         {
                             OpenMenu();
                             isMenuOpen = true;
                         }
 
-                        if (objectHit == "Example1")
+                        if (objectHit == "Example2")
                         {                           
                             OpenContainer();
                             isContainerOpen = true;
@@ -77,7 +75,7 @@ public class MyClickHandler : MonoBehaviour
 
     public void OpenMenu()
     {
-        GameObject menu = GameObject.Find("SceneObjects/Case1/Cube/Canvas/Menu");
+        GameObject menu = GameObject.Find("SceneObjects/Case2/Cube2/Canvas/Menu");
 
         if (menu != null)
         {
@@ -86,23 +84,22 @@ public class MyClickHandler : MonoBehaviour
             menu.SetActive(!isActive);
 
             if (!isContainerOpen) {
-                GameObject.Find("SceneObjects/Case1/Cube/Canvas/Container").SetActive(false);
+                GameObject.Find("SceneObjects/Case2/Cube2/Canvas/Container").SetActive(false);
             }
-
-            debugTextMesh.text = "isContainerOpen " + isContainerOpen + "isMenuOpen" + isMenuOpen;
+       
         }
     }
 
     public void OpenContainer()
     {
-        GameObject container = GameObject.Find("SceneObjects/Case1/Cube/Canvas/Container");
+        GameObject container = GameObject.Find("SceneObjects/Case2/Cube2/Canvas/Container");
         
 
         if (container != null)
         {
             bool isActive = container.activeSelf;            
             container?.SetActive(!isActive);
-            debugTextMesh.text = "OpenContainer."  + !isActive;
+         
         }
     }
 }
