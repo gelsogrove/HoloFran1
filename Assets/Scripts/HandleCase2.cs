@@ -24,12 +24,12 @@ public class HandleCase2 : MonoBehaviour
             Vector3 directionToContainer = Container.transform.position - Camera.main.transform.position;
 
             Quaternion lookRotationTitle = Quaternion.LookRotation(directionToTitle, Vector3.up);
-            Quaternion lookRotationMenu = Quaternion.LookRotation(directionToMenu, Vector3.up);
-            Quaternion lookRotationContainer= Quaternion.LookRotation(directionToContainer, Vector3.up);
+            //Quaternion lookRotationMenu = Quaternion.LookRotation(directionToMenu, Vector3.up);
+            //Quaternion lookRotationContainer= Quaternion.LookRotation(directionToContainer, Vector3.up);
 
             Title.transform.rotation = lookRotationTitle;
-            Menu.transform.rotation = lookRotationMenu;
-            Container.transform.rotation = lookRotationContainer;
+           // Menu.transform.rotation = lookRotationMenu;
+            //Container.transform.rotation = lookRotationContainer;
 
             CubeR.transform.Rotate(Vector3.up, 90f * Time.deltaTime);
             CubeR.transform.position = Cube.transform.position;   
@@ -84,7 +84,7 @@ public class HandleCase2 : MonoBehaviour
             menu.SetActive(!isActive);
 
             if (!isContainerOpen) {
-                GameObject.Find("SceneObjects/Case2/Cube2/Canvas/Container").SetActive(false);
+                GameObject.Find("SceneObjects/Case2/Cube2/Canvas/Menu/Container").SetActive(false);
             }
        
         }
@@ -92,7 +92,7 @@ public class HandleCase2 : MonoBehaviour
 
     public void OpenContainer()
     {
-        GameObject container = GameObject.Find("SceneObjects/Case2/Cube2/Canvas/Container");
+        GameObject container = GameObject.Find("SceneObjects/Case2/Cube2/Canvas/Menu/Container");
         
 
         if (container != null)
