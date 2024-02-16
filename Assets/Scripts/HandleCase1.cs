@@ -16,6 +16,7 @@ public class HandleCase1 : MonoBehaviour
     private bool isMenuOpen = false;
     private bool isContainerOpen = false;
     private string caseNumber = "Case1";
+    private string menuSelected = "";
 
     void Update()
     {
@@ -36,6 +37,8 @@ public class HandleCase1 : MonoBehaviour
             CubeR.transform.Rotate(Vector3.up, 90f * Time.deltaTime);
             CubeR.transform.position = Cube.transform.position;
 
+
+
     
 
             if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && (!isMenuOpen || !isContainerOpen  ))
@@ -47,8 +50,7 @@ public class HandleCase1 : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, raycastDistance))
                 {
                     string objectHit = hit.collider.gameObject.name; // Ottieni il nome dell'oggetto colpito
-                    debugTextMesh.text = "CASE 1 > Object Hit: " + objectHit; // Imposta il testo con il nome dell'oggetto colpito
-
+                  
 
                         if (hit.collider.CompareTag("Cube1"))
                         {
@@ -57,12 +59,18 @@ public class HandleCase1 : MonoBehaviour
                             isMenuOpen = true;
                         }
 
-                        if (objectHit == "Example1")
+                        if (objectHit == "General")
                         {                           
                             OpenContainer();
                             isContainerOpen = true;
+                            this.menuSelected = "General";
                         }
-                }
+
+                        if (objectHit == "DM" && this.menuSelected == "General")
+                        {
+                         Toggle("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM"); 
+                        }
+            }
     
             }
             else if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
@@ -74,18 +82,34 @@ public class HandleCase1 : MonoBehaviour
     }
 
 
-   
+
+    public void Toggle(string path)
+    {
+        // Trova l'oggetto corrispondente al percorso specificato
+        GameObject obj = GameObject.Find(path);
+
+        // Verifica se l'oggetto è stato trovato
+        if (obj != null)
+        {
+            // Ottieni lo stato attuale dell'oggetto
+            bool isActive = obj.activeSelf;
+
+            // Cambia lo stato dell'oggetto (attivo o disattivo)
+            obj.SetActive(!isActive);
+        }
+        else
+        {
+            Debug.LogError("Oggetto non trovato al percorso: " + path);
+        }
+    }
 
 
     public void OpenMenu()
     {
-        GameObject menu = GameObject.Find("SceneObjects/Case1/Cube1/Canvas/Menu");
-
-        debugTextMesh.text = "CASE 1 > OpenMenu 1 > /Case1/Cube1/Canvas/Menu";
+        GameObject menu = GameObject.Find("SceneObjects/Case1/Cube1/Canvas/Menu");        
 
         if (menu != null)
         {
-            debugTextMesh.text = "CASE 1 > OpenMenu 1 > menu OK";
 
             bool isActive = menu.activeSelf;            
 
