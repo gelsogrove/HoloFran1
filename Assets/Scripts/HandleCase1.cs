@@ -49,10 +49,16 @@ public class HandleCase1 : MonoBehaviour
                 {
                     ToggleContainer(objectHit);
                 }
-                else if (objectHit == "DM" || objectHit == "NDF" || objectHit == "dNDF")
+                else if (this.menuSelected == "General" && objectHit == "DM" || objectHit == "NDF" || objectHit == "dNDF")
                 {
                     ToggleGraph(objectHit);
                 }
+
+                else if (this.menuSelected == "Fibers" &&  objectHit == "ADF" || objectHit == "NDF" || objectHit == "dNDF" || objectHit == "uNDF")
+                {
+                    ToggleGraph(objectHit);
+                }
+
             }
         }
         else if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
