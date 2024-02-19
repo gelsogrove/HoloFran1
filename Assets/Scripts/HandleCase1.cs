@@ -31,6 +31,8 @@ public class HandleCase1 : MonoBehaviour
 
         RotateCube();
 
+        Rollover();
+
         if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && (!isMenuOpen || !isContainerOpen))
         {
             Ray ray = new Ray(controllerTransform.position, controllerTransform.forward);
@@ -142,6 +144,11 @@ public class HandleCase1 : MonoBehaviour
         }
     }
 
+    private void Rollover()
+    {
+          
+
+    }
 
     private void RotateTitle() {
         Vector3 directionToTitle = Title.transform.position - Camera.main.transform.position;
@@ -178,17 +185,18 @@ public class HandleCase1 : MonoBehaviour
     private void ToggleContainer(string objectHit)
     {
         isContainerOpen = true;
-        
+
+        TurnOn(commonPath + "Menu/Container/");
 
         if (objectHit == "General") {
-            TurnOn(commonPath + "Menu/Container/");
+            
             TurnOn(commonPath + "Menu/Container/General", includeChildren: true);
             TurnOff(commonPath + "Menu/Container/Fibers", includeChildren: true);
             this.menuSelected = "General";
         }
 
         if (objectHit == "Fibers") {
-            TurnOn(commonPath + "Menu/Container/");
+            
             TurnOn(commonPath + "Menu/Container/Fibers" , includeChildren: true);
             TurnOff(commonPath + "Menu/Container/General" , includeChildren: true);
             this.menuSelected = "Fibers";
