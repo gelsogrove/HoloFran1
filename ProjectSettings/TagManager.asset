@@ -15,6 +15,7 @@ TagManager:
   - Cube2
   - Example2
   - General
+  - Fibers
   layers:
   - Default
   - TransparentFX

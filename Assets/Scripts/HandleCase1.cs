@@ -1,3 +1,4 @@
+using System.IO;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -18,83 +19,102 @@ public class HandleCase1 : MonoBehaviour
     private string caseNumber = "Case1";
     private string menuSelected = "";
 
-    void Update()
+    void Start()
+    {
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");        
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph");
+    }
+
+        void Update()
     {
         
             Vector3 directionToTitle = Title.transform.position - Camera.main.transform.position;
-            Vector3 directionToMenu = Menu.transform.position - Camera.main.transform.position;
-            Vector3 directionToContainer = Container.transform.position - Camera.main.transform.position;
-
+            Vector3 directionToMenu = Menu.transform.position - Camera.main.transform.position;            
             Quaternion lookRotationTitle = Quaternion.LookRotation(directionToTitle, Vector3.up);
-            Quaternion lookRotationMenu = Quaternion.LookRotation(directionToMenu, Vector3.up);
-            //Quaternion lookRotationContainer = Quaternion.LookRotation(directionToContainer, Vector3.up);
-
+            Quaternion lookRotationMenu = Quaternion.LookRotation(directionToMenu, Vector3.up);            
                 
             Title.transform.rotation = lookRotationTitle;
             Menu.transform.rotation = lookRotationMenu;
-            //Container.transform.rotation = lookRotationContainer;
-
+            
             CubeR.transform.Rotate(Vector3.up, 90f * Time.deltaTime);
             CubeR.transform.position = Cube.transform.position;
-
-
-
     
 
             if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && (!isMenuOpen || !isContainerOpen  ))
             {
                 Ray ray = new Ray(controllerTransform.position, controllerTransform.forward);
-                RaycastHit hit;                                 
+                RaycastHit hit;
+            
 
-
-                if (Physics.Raycast(ray, out hit, raycastDistance))
+            if (Physics.Raycast(ray, out hit, raycastDistance))
                 {
-                    string objectHit = hit.collider.gameObject.name; // Ottieni il nome dell'oggetto colpito
-                  
+                    string objectHit = hit.collider.gameObject.name; 
+                    debugTextMesh.text = "CASE 1 > Object Hit: " + objectHit;  
 
-                        if (hit.collider.CompareTag("Cube1"))
-                        {
-                            debugTextMesh.text = "CASE 1 > OpenMenu 1";
-                            OpenMenu();
-                            isMenuOpen = true;
-                        }
 
-                        if (objectHit == "General")
-                        {                           
-                            OpenContainer();
-                            isContainerOpen = true;
-                            this.menuSelected = "General";
-                        }
+                    if (objectHit == "Cube1")
+                    {
+                        ToggleMenu();
+                    }
+                    else if (objectHit == "General" || objectHit == "Fibers")
+                    {
+                        ToggleContainer(objectHit);
+                    }
+                    else if (objectHit == "DM" || objectHit == "NDF"  || objectHit == "dNDF")
+                    {
+                        ToggleGraph(objectHit);                    
+                    }
 
-                        if (objectHit == "DM" && this.menuSelected == "General")
-                        {
-                         Toggle("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM"); 
-                        }
             }
-    
-            }
+
+        }
             else if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
             {
-                isMenuOpen = false;
-                isContainerOpen = false;                            
-            }
+                this.isMenuOpen = false;
+                this.isContainerOpen = false;
+                this.menuSelected = null;
+        }
         
     }
 
 
+    private void ToggleContainer(string objectHit) {
 
-    public void Toggle(string path)
-    {
-        // Trova l'oggetto corrispondente al percorso specificato
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/NDF");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/dNDF");
+
+        if (objectHit == "General")
+        {
+            this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/Fibers");
+            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
+            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/General");
+            
+        }
+
+        if (objectHit == "Fibers")
+        {
+            this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/General");                        
+            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
+            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/Fibers");            
+        }
+
+
+        isContainerOpen = true;
+        this.menuSelected = objectHit;
+
+    }
+
+    private void Toggle(string path)
+    {    
         GameObject obj = GameObject.Find(path);
-
-        // Verifica se l'oggetto è stato trovato
+     
         if (obj != null)
         {
-            // Ottieni lo stato attuale dell'oggetto
             bool isActive = obj.activeSelf;
-
-            // Cambia lo stato dell'oggetto (attivo o disattivo)
             obj.SetActive(!isActive);
         }
         else
@@ -104,36 +124,93 @@ public class HandleCase1 : MonoBehaviour
     }
 
 
-    public void OpenMenu()
-    {
-        GameObject menu = GameObject.Find("SceneObjects/Case1/Cube1/Canvas/Menu");        
-
-        if (menu != null)
-        {
-
-            bool isActive = menu.activeSelf;            
-
-            menu.SetActive(!isActive);
-
-            if (!isContainerOpen) {
-                GameObject.Find("SceneObjects/Case1/Cube1/Canvas/Menu/Container").SetActive(false);
-            }
-
-            
-        }else {
-            debugTextMesh.text = "CASE 1 > OpenMenu 1 > menu KO";
-        }
-    }
-
-    public void OpenContainer()
-    {
-        GameObject container = GameObject.Find("SceneObjects/Case1/Cube1/Canvas/Menu/Container");
+    public void TurnOff(string path)
+    {        
+        GameObject obj = GameObject.Find(path);
         
-
-        if (container != null)
+        if (obj != null)
+        {                       
+            obj.SetActive(false);
+        }
+        else
         {
-            bool isActive = container.activeSelf;            
-            container?.SetActive(!isActive);       
+            Debug.LogError("Oggetto non trovato al percorso: " + path);
         }
     }
+
+
+    private void TurnOn(string path)
+    {
+        GameObject obj = GameObject.Find(path);
+
+        if (obj != null)
+        {
+
+            obj.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Oggetto non trovato al percorso: " + path);
+        }
+    }
+
+
+
+    private void TurnOffRecorsive(string path)
+    {
+        GameObject obj = GameObject.Find(path);
+
+        if (obj != null)
+        {
+            obj.SetActive(false);
+            
+            foreach (Transform child in obj.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            Debug.LogError("Oggetto non trovato al percorso: " + path);
+        }
+    }
+
+    public void ToggleMenu()
+    {       
+        this.isMenuOpen = true;
+
+        Toggle("SceneObjects/Case1/Cube1/Canvas/Menu/");
+
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/General");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/Fibers");
+
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/NDF");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/dNDF");
+
+    }
+
+
+    public void ToggleGraph(string objectHit)
+    {
+
+
+        debugTextMesh.text = "CASE 1 > Object Hit > ToggleGraph " + objectHit;
+
+
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/NDF");
+        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/dNDF");         
+
+        this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/");
+        this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/");
+        this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/" + objectHit);
+
+
+    }
+
+
 }
