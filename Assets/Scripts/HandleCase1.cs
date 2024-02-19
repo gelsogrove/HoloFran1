@@ -16,157 +16,73 @@ public class HandleCase1 : MonoBehaviour
 
     private bool isMenuOpen = false;
     private bool isContainerOpen = false;
-    private string caseNumber = "Case1";
-    private string menuSelected = "";
+    private string commonPath = "SceneObjects/Case1/Cube1/Canvas/";
+    private string menuSelected;
 
     void Start()
     {
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");        
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph");
+        TurnOff(commonPath + "Menu", includeChildren: true);
     }
 
-        void Update()
+    void Update()
     {
-        
-            Vector3 directionToTitle = Title.transform.position - Camera.main.transform.position;
-            Vector3 directionToMenu = Menu.transform.position - Camera.main.transform.position;            
-            Quaternion lookRotationTitle = Quaternion.LookRotation(directionToTitle, Vector3.up);
-            Quaternion lookRotationMenu = Quaternion.LookRotation(directionToMenu, Vector3.up);            
-                
-            Title.transform.rotation = lookRotationTitle;
-            Menu.transform.rotation = lookRotationMenu;
-            
-            CubeR.transform.Rotate(Vector3.up, 90f * Time.deltaTime);
-            CubeR.transform.position = Cube.transform.position;
-    
 
-            if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && (!isMenuOpen || !isContainerOpen  ))
-            {
-                Ray ray = new Ray(controllerTransform.position, controllerTransform.forward);
-                RaycastHit hit;
-            
+        RotateTitle();
+
+        RotateCube();
+
+        if (OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch) && (!isMenuOpen || !isContainerOpen))
+        {
+            Ray ray = new Ray(controllerTransform.position, controllerTransform.forward);
+            RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, raycastDistance))
-                {
-                    string objectHit = hit.collider.gameObject.name; 
-                    debugTextMesh.text = "CASE 1 > Object Hit: " + objectHit;  
-
-
-                    if (objectHit == "Cube1")
-                    {
-                        ToggleMenu();
-                    }
-                    else if (objectHit == "General" || objectHit == "Fibers")
-                    {
-                        ToggleContainer(objectHit);
-                    }
-                    else if (objectHit == "DM" || objectHit == "NDF"  || objectHit == "dNDF")
-                    {
-                        ToggleGraph(objectHit);                    
-                    }
-
-            }
-
-        }
-            else if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
             {
-                this.isMenuOpen = false;
-                this.isContainerOpen = false;
-                this.menuSelected = null;
+                string objectHit = hit.collider.gameObject.name;
+                debugTextMesh.text = "CASE 1 > Object Hit: " + objectHit;
+
+                if (objectHit == "Cube1")
+                {
+                    ToggleMenu();
+                }
+                else if (objectHit == "General" || objectHit == "Fibers")
+                {
+                    ToggleContainer(objectHit);
+                }
+                else if (objectHit == "DM" || objectHit == "NDF" || objectHit == "dNDF")
+                {
+                    ToggleGraph(objectHit);
+                }
+            }
         }
-        
+        else if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
+        {
+            isMenuOpen = false;
+            isContainerOpen = false;            
+        }
     }
 
-
-    private void ToggleContainer(string objectHit) {
-
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/NDF");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/dNDF");
-
-        if (objectHit == "General")
-        {
-            this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/Fibers");
-            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
-            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/General");
-            
-        }
-
-        if (objectHit == "Fibers")
-        {
-            this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/General");                        
-            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
-            this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Container/Fibers");            
-        }
-
-
-        isContainerOpen = true;
-        this.menuSelected = objectHit;
-
+    private void RotateCube()
+    {
+        CubeR.transform.Rotate(Vector3.up, 90f * Time.deltaTime);
+        CubeR.transform.position = Cube.transform.position;
     }
 
-    private void Toggle(string path)
-    {    
+    private void Toggle(string path, bool includeChildren = false)
+    {
         GameObject obj = GameObject.Find(path);
-     
+
         if (obj != null)
         {
             bool isActive = obj.activeSelf;
             obj.SetActive(!isActive);
-        }
-        else
-        {
-            Debug.LogError("Oggetto non trovato al percorso: " + path);
-        }
-    }
 
-
-    public void TurnOff(string path)
-    {        
-        GameObject obj = GameObject.Find(path);
-        
-        if (obj != null)
-        {                       
-            obj.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("Oggetto non trovato al percorso: " + path);
-        }
-    }
-
-
-    private void TurnOn(string path)
-    {
-        GameObject obj = GameObject.Find(path);
-
-        if (obj != null)
-        {
-
-            obj.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("Oggetto non trovato al percorso: " + path);
-        }
-    }
-
-
-
-    private void TurnOffRecorsive(string path)
-    {
-        GameObject obj = GameObject.Find(path);
-
-        if (obj != null)
-        {
-            obj.SetActive(false);
-            
-            foreach (Transform child in obj.transform)
+            if (includeChildren)
             {
-                child.gameObject.SetActive(false);
+                foreach (Transform child in obj.transform)
+                {
+                    child.gameObject.SetActive(!isActive);
+                }
             }
         }
         else
@@ -175,42 +91,104 @@ public class HandleCase1 : MonoBehaviour
         }
     }
 
-    public void ToggleMenu()
-    {       
-        this.isMenuOpen = true;
+    public void TurnOff(string path, bool includeChildren = false)
+    {
+        GameObject obj = GameObject.Find(path);
 
-        Toggle("SceneObjects/Case1/Cube1/Canvas/Menu/");
+        if (obj != null)
+        {
+            obj.SetActive(false);
 
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/General");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Container/Fibers");
-
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/NDF");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/dNDF");
-
+            if (includeChildren)
+            {
+                foreach (Transform child in obj.transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Oggetto non trovato al percorso: " + path);
+        }
     }
 
+
+    private void TurnOn(string path, bool includeChildren = false)
+    {
+        GameObject obj = GameObject.Find(path);
+
+        if (obj != null)
+        {
+            obj.SetActive(true);
+
+            if (includeChildren)
+            {
+                foreach (Transform child in obj.transform)
+                {
+                    child.gameObject.SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Oggetto non trovato al percorso: " + path);
+        }
+    }
+
+
+    private void RotateTitle() {
+        Vector3 directionToTitle = Title.transform.position - Camera.main.transform.position;
+        Vector3 directionToMenu = Menu.transform.position - Camera.main.transform.position;
+        Quaternion lookRotationTitle = Quaternion.LookRotation(directionToTitle, Vector3.up);
+        Quaternion lookRotationMenu = Quaternion.LookRotation(directionToMenu, Vector3.up);
+
+        Title.transform.rotation = lookRotationTitle;
+        Menu.transform.rotation = lookRotationMenu;
+    }
+
+    public void ToggleMenu()
+    {
+        isMenuOpen = true;
+
+        Toggle(commonPath + "Menu", includeChildren: true);
+        TurnOff(commonPath + "Menu/Container", includeChildren: true);
+        TurnOff(commonPath + "Menu/Graph", includeChildren: true);
+
+    }
 
     public void ToggleGraph(string objectHit)
     {
 
+        TurnOn(commonPath + "Menu/Graph/");
+        TurnOff(commonPath + "Menu/Graph/" + this.menuSelected,  includeChildren: true);
+        
+        TurnOn(commonPath + "Menu/Graph/" + this.menuSelected );
+        Toggle(commonPath + "Menu/Graph/" + this.menuSelected + "/" + objectHit);
 
-        debugTextMesh.text = "CASE 1 > Object Hit > ToggleGraph " + objectHit;
-
-
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/DM");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/NDF");
-        this.TurnOff("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/dNDF");         
-
-        this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/");
-        this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/");
-        this.TurnOn("SceneObjects/Case1/Cube1/Canvas/Menu/Graph/General/" + objectHit);
-
-
+        debugTextMesh.text = commonPath + "Menu/Graph/" + this.menuSelected + "/" + objectHit;
     }
 
+    private void ToggleContainer(string objectHit)
+    {
+        isContainerOpen = true;
+        
 
+        if (objectHit == "General") {
+            TurnOn(commonPath + "Menu/Container/");
+            TurnOn(commonPath + "Menu/Container/General", includeChildren: true);
+            TurnOff(commonPath + "Menu/Container/Fibers", includeChildren: true);
+            this.menuSelected = "General";
+        }
+
+        if (objectHit == "Fibers") {
+            TurnOn(commonPath + "Menu/Container/");
+            TurnOn(commonPath + "Menu/Container/Fibers" , includeChildren: true);
+            TurnOff(commonPath + "Menu/Container/General" , includeChildren: true);
+            this.menuSelected = "Fibers";
+        }
+  
+        TurnOff(commonPath + "Menu/Graph", includeChildren: true);           
+             
+    }
 }
