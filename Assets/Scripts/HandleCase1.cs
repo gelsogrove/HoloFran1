@@ -47,7 +47,7 @@ public class HandleCase1 : MonoBehaviour
                 {
                     ToggleMenu();
                 }
-                else if (objectHit == "General" || objectHit == "Fibers")
+                else if (objectHit == "General" || objectHit == "Fibers" || objectHit == "Carbohydrates")
                 {
                     ToggleContainer(objectHit);
                 }
@@ -57,6 +57,11 @@ public class HandleCase1 : MonoBehaviour
                 }
 
                 else if (this.menuSelected == "Fibers" &&  objectHit == "ADF" || objectHit == "NDF" || objectHit == "dNDF" || objectHit == "uNDF")
+                {
+                    ToggleGraph(objectHit);
+                }
+
+                else if (this.menuSelected == "Carbohydrates" && objectHit == "Starch" || objectHit == "Sugar" || objectHit == "SugarWPS" || objectHit == "SugarESC")
                 {
                     ToggleGraph(objectHit);
                 }
@@ -192,6 +197,7 @@ public class HandleCase1 : MonoBehaviour
             
             TurnOn(commonPath + "Menu/Container/General", includeChildren: true);
             TurnOff(commonPath + "Menu/Container/Fibers", includeChildren: true);
+            TurnOff(commonPath + "Menu/Container/Carbohydrates", includeChildren: true);
             this.menuSelected = "General";
         }
 
@@ -199,9 +205,20 @@ public class HandleCase1 : MonoBehaviour
             
             TurnOn(commonPath + "Menu/Container/Fibers" , includeChildren: true);
             TurnOff(commonPath + "Menu/Container/General" , includeChildren: true);
+            TurnOff(commonPath + "Menu/Container/Carbohydrates", includeChildren: true);
             this.menuSelected = "Fibers";
         }
-  
+
+        if (objectHit == "Carbohydrates")
+        {
+
+            TurnOn(commonPath + "Menu/Container/Carbohydrates", includeChildren: true);
+            TurnOff(commonPath + "Menu/Container/Fibers", includeChildren: true);
+            TurnOff(commonPath + "Menu/Container/General", includeChildren: true);
+            this.menuSelected = "Carbohydrates";
+        }
+
+
         TurnOff(commonPath + "Menu/Graph", includeChildren: true);           
              
     }
