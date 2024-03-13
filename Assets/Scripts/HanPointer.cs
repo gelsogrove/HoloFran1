@@ -1,12 +1,14 @@
+using TMPro;
 using UnityEngine;
 
 public class HandPointer : MonoBehaviour
 {
     public OVRHand rightHand;
     public GameObject CurrentTarget { get; private set; }
+    public TextMeshPro debugTextMesh;
 
     [SerializeField] private bool showCast = true;
-    [SerializeField] private Color highlightColor = Color.red;
+    [SerializeField] private Color highlightColor = Color.white;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private LineRenderer lineRenderer;
 
@@ -28,6 +30,7 @@ public class HandPointer : MonoBehaviour
                 _currentRenderer = hit.transform.GetComponent<Renderer>();
                 _originColor = _currentRenderer.material.color;
                 _currentRenderer.material.color = highlightColor;
+                debugTextMesh.text = CurrentTarget.name + "sss";
             }
 
             UpdateRayVisualization(hand.PointerPose.position, hit.point, true);
@@ -50,7 +53,7 @@ public class HandPointer : MonoBehaviour
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, startPosition);
             lineRenderer.SetPosition(1, endPosition);
-            lineRenderer.material.color = hitSomething ? Color.green : Color.red;
+            lineRenderer.material.color = hitSomething ? Color.red : Color.white;
         }
         else if (lineRenderer != null)
         {

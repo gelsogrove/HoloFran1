@@ -41,7 +41,7 @@ public class HandleCase1 : MonoBehaviour
             if (Physics.Raycast(ray, out hit, raycastDistance))
             {
                 string objectHit = hit.collider.gameObject.name;
-                debugTextMesh.text = "CASE 1 > Object Hit: " + objectHit;
+                //debugTextMesh.text = "CASE 1 > Object Hit: " + objectHit;
 
                 if (objectHit == "Cube1")
                 {
@@ -184,7 +184,6 @@ public class HandleCase1 : MonoBehaviour
         TurnOn(commonPath + "Menu/Graph/" + this.menuSelected );
         Toggle(commonPath + "Menu/Graph/" + this.menuSelected + "/" + objectHit);
 
-        debugTextMesh.text = commonPath + "Menu/Graph/" + this.menuSelected + "/" + objectHit;
     }
 
     private void ToggleContainer(string objectHit)

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HandPinchDetector : MonoBehaviour
@@ -12,10 +13,11 @@ public class HandPinchDetector : MonoBehaviour
     private bool _hasPinched;
     private bool _isIndexFingerPinching;
     private float _pinchStrength;
+    public TextMeshPro debugTextMesh;
     private OVRHand.TrackingConfidence _confidence;
 
     private void Update() => CheckPInch(handPointer.rightHand);
-    
+    RaycastHit hit;
 
     void CheckPInch(OVRHand hand)
     {
@@ -23,10 +25,12 @@ public class HandPinchDetector : MonoBehaviour
         _isIndexFingerPinching = hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
         _confidence = hand.GetFingerConfidence(OVRHand.HandFinger.Index);
 
+      
         if (handPointer.CurrentTarget)
         {
             Material currentMaterial = handPointer.CurrentTarget.GetComponent<Renderer>().material;
             currentMaterial.SetFloat("_Metallic", _pinchStrength);
+            
         }
 
         if (!_hasPinched && _isIndexFingerPinching && _confidence == OVRHand.TrackingConfidence.High && handPointer.CurrentTarget)
