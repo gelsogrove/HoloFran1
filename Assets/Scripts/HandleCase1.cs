@@ -170,19 +170,19 @@ public class HandleCase1 : MonoBehaviour
         isMenuOpen = true;
 
         Toggle(commonPath + "Menu", includeChildren: true);
-        TurnOff(commonPath + "Menu/Container", includeChildren: true);
-        TurnOff(commonPath + "Menu/Graph", includeChildren: true);
+        TurnOff(commonPath + "Container", includeChildren: true);
+        TurnOff(commonPath + "Graph", includeChildren: true);
 
     }
 
     public void ToggleGraph(string objectHit)
     {
 
-        TurnOn(commonPath + "Menu/Graph/");
-        TurnOff(commonPath + "Menu/Graph/" + this.menuSelected,  includeChildren: true);
+        TurnOn(commonPath + "Graph/");
+        TurnOff(commonPath + "Graph/" + this.menuSelected,  includeChildren: true);
         
-        TurnOn(commonPath + "Menu/Graph/" + this.menuSelected );
-        Toggle(commonPath + "Menu/Graph/" + this.menuSelected + "/" + objectHit);
+        TurnOn(commonPath + "Graph/" + this.menuSelected );
+        Toggle(commonPath + "Graph/" + this.menuSelected + "/" + objectHit);
 
     }
 
@@ -190,35 +190,35 @@ public class HandleCase1 : MonoBehaviour
     {
         isContainerOpen = true;
 
-        TurnOn(commonPath + "Menu/Container/");
+        TurnOn(commonPath + "Container/");
 
         if (objectHit == "General") {
             
-            TurnOn(commonPath + "Menu/Container/General", includeChildren: true);
-            TurnOff(commonPath + "Menu/Container/Fibers", includeChildren: true);
-            TurnOff(commonPath + "Menu/Container/Carbohydrates", includeChildren: true);
+            TurnOn(commonPath + "Container/General", includeChildren: true);
+            TurnOff(commonPath + "Container/Fibers", includeChildren: true);
+            TurnOff(commonPath + "Container/Carbohydrates", includeChildren: true);
             this.menuSelected = "General";
         }
 
         if (objectHit == "Fibers") {
             
-            TurnOn(commonPath + "Menu/Container/Fibers" , includeChildren: true);
-            TurnOff(commonPath + "Menu/Container/General" , includeChildren: true);
-            TurnOff(commonPath + "Menu/Container/Carbohydrates", includeChildren: true);
+            TurnOn(commonPath + "Container/Fibers" , includeChildren: true);
+            TurnOff(commonPath + "Container/General" , includeChildren: true);
+            TurnOff(commonPath + "Container/Carbohydrates", includeChildren: true);
             this.menuSelected = "Fibers";
         }
 
         if (objectHit == "Carbohydrates")
         {
 
-            TurnOn(commonPath + "Menu/Container/Carbohydrates", includeChildren: true);
-            TurnOff(commonPath + "Menu/Container/Fibers", includeChildren: true);
-            TurnOff(commonPath + "Menu/Container/General", includeChildren: true);
+            TurnOn(commonPath + "Container/Carbohydrates", includeChildren: true);
+            TurnOff(commonPath + "Container/Fibers", includeChildren: true);
+            TurnOff(commonPath + "Container/General", includeChildren: true);
             this.menuSelected = "Carbohydrates";
         }
 
 
-        TurnOff(commonPath + "Menu/Graph", includeChildren: true);           
+        TurnOff(commonPath + "Graph", includeChildren: true);           
              
     }
 }
